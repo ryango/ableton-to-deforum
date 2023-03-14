@@ -10,3 +10,6 @@ Script for translating Ableton track automation to Deforum keyframes
 7. Run python script
 
 ```python abletonToDeforum.py <als file> <framerate: optional, assumes 15fps>```
+
+More info here:
+https://theryangordon.medium.com/audio-synced-ai-animations-cde42688d824
