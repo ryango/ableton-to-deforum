@@ -1,6 +1,10 @@
 # ableton-to-deforum
 
 Script for translating Ableton track automation to Deforum keyframes 
+![ableton screenshot](https://miro.medium.com/v2/resize:fit:720/format:webp/1*aUm_oTjvA0pgm03AjJBlYg.png)
+
+[Output example](https://www.instagram.com/reel/CpxnmEdDN5a/?utm_source=ig_web_copy_link)
+
 1. Import audio clip onto first audio track
 2. Ensure file BPM is correct
 3. Put Overdrive effects onto the first audio track
