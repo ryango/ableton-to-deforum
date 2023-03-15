@@ -17,3 +17,7 @@ Script for translating Ableton track automation to Deforum keyframes
 
 More info here:
 https://theryangordon.medium.com/audio-synced-ai-animations-cde42688d824
+
+Known issues:
+- It doesn't put a keyframe at 0 if there's no automation node at 0 and Deforum doesn't handle that so either put the node there or add one in the resulting text
+- Issues when multiple points resolve to the same frame
