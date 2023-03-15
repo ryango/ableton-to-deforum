@@ -9,7 +9,7 @@ Script for translating Ableton track automation to Deforum keyframes
 2. Ensure file BPM is correct
 3. Put Overdrive effects onto the first audio track
 4. Rename them to what parameter you want to animate
-5. Specify remapping in each Overdrive's Info Text field
+5. Specify remapping in each Overdrive's Info Text field (Right click -> Edit text info and enter 0, -5 to remap the drive's 0->100 range to 0 to -5)
 6. Save ALS file
 7. Run python script
 
