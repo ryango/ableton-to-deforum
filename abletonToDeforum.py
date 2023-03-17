@@ -26,11 +26,35 @@ lastFrame = -1
 devices = root.find("LiveSet").find("Tracks")[0].find("DeviceChain").find("DeviceChain").find("Devices").findall("Overdrive")
 bpm = float(root.find("LiveSet").find("MasterTrack").find("DeviceChain").find("Mixer").find("Tempo").find("Manual").get("Value"))
 print(f"\nGenerating keyframes for Ableston set with {bpm} bpm and target framerate {fps}")
+print(f"Found {len(devices)} overdrives on the first audio track")
 for device in devices:
     print("\n")
-    range = list(map(lambda x: float(x), device.find("Annotation").get("Value").split(",")))
+
+    try: 
+        deviceName = device.find("UserName").get("Value")
+    except:
+        deviceName = "None"
+    
+    try:
+        drive = device.find("Drive")
+        automation = drive.find("ArrangerAutomation")
+        events = automation.find("Events")
+    except:
+        print(f"Device named {deviceName} no automation events detected")
+        continue
+
+
+    annotation = device.find("Annotation").get("Value").split(",")
+    if annotation == [""]:
+        print(f"Device named {deviceName} missing remapped range. Enter remap min:")
+        min = input()
+        print(f"Enter remap max:")
+        max = input()
+        annotation = [min, max]
+
+    range = list(map(lambda x: float(x), annotation))
     print(f'Keyframes for: {device.find("UserName").get("Value")} with range {range}')
-    events = device.find("Drive").find("ArrangerAutomation").find("Events")
+    
     for child in events:
         frame = round(float(child.get("Time")) / bpm * 60 * fps)
         
