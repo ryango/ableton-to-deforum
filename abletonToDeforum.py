@@ -29,6 +29,7 @@ bpm = float(root.find("LiveSet").find("MasterTrack").find("DeviceChain").find("M
 print(f"\nGenerating keyframes for Ableston set with {bpm} bpm and target framerate {fps} and Ableton XML version {root.get('MajorVersion')}")
 if root.get("MajorVersion") == '4':
     print(f"Found {len(devices)} overdrives on the first audio track")
+    lastframe = -1
     for device in devices:
         print("\n")
 
@@ -61,7 +62,12 @@ if root.get("MajorVersion") == '4':
             frame = round(float(child.get("Time")) / bpm * 60 * fps)
             
             if frame < 0:
-                continue
+                frame = 0
+            
+            if frame == lastframe:
+                frame += 1
+            
+            lastframe = frame
 
             value = float(child.get("Value"))
             value = reMap(value, 100, 0, range[1], range[0])
