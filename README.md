@@ -17,7 +17,7 @@ Script for translating Ableton track automation to Deforum keyframes
 
 There is a sample Ableton 11 file for [this video](https://www.instagram.com/p/CpxnmEdDN5a/). You can generate the keyframes from this directory with
 
-```python abletonToDeforum.py 'kira\ Project/kira11.als' 15```
+```python abletonToDeforum.py 'kira Project/kira11.als' 15```
 
 You can take at the file to help understand the setup
 
