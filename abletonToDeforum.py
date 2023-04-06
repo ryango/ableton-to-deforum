@@ -29,7 +29,6 @@ bpm = float(root.find("LiveSet").find("MasterTrack").find("DeviceChain").find("M
 print(f"\nGenerating keyframes for Ableston set with {bpm} bpm and target framerate {fps} and Ableton XML version {root.get('MajorVersion')}")
 if root.get("MajorVersion") == '4':
     print(f"Found {len(devices)} overdrives on the first audio track")
-    lastframe = -1
     for device in devices:
         print("\n")
 
@@ -57,21 +56,16 @@ if root.get("MajorVersion") == '4':
 
         range = list(map(lambda x: float(x), annotation))
         print(f'Keyframes for: {device.find("UserName").get("Value")} with range {range}')
-        
+        lastframe = -1
         for child in events:
             frame = round(float(child.get("Time")) / bpm * 60 * fps)
             
             if frame < 0:
                 frame = 0
             
-            if frame == lastframe:
-                frame += 1
-            
-            lastframe = frame
-
             value = float(child.get("Value"))
             value = reMap(value, 100, 0, range[1], range[0])
-            print(f"{frame}: ({value}),", end=" ")
+            print(f"{frame}: ({value})", end=" " if child == events[len(events)-1] else ", ")
 elif root.get("MajorVersion") == '5':
     deviceInfo = dict()
     for device in devices:
@@ -110,9 +104,10 @@ elif root.get("MajorVersion") == '5':
         print(f'Keyframes for: {name} with range {range}')
         for child in events:
             frame = round(float(child.get("Time")) / bpm * 60 * fps)
+            
             if frame < 0:
-                continue
+                frame = 0
             value = float(child.get("Value"))
             value = reMap(value, 100, 0, range[1], range[0])
-            print(f"{frame}: ({value}),", end=" ")
+            print(f"{frame}: ({value})", end=" " if child == events[len(events)-1] else ", ")
 
