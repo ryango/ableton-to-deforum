@@ -15,10 +15,15 @@ Script for translating Ableton track automation to Deforum keyframes
 
 ```python abletonToDeforum.py <als file> <framerate: optional, assumes 15fps>```
 
+There is a sample Ableton 11 file for [this video](https://www.instagram.com/p/CpxnmEdDN5a/). You can generate the keyframes from this directory with
+```python abletonToDeforum.py 'kira\ Project/kira11.als' 15```
+You can take at the file to help understand the setup
+
 More info here:
 https://theryangordon.medium.com/audio-synced-ai-animations-cde42688d824
 
 Known issues:
-- It doesn't put a keyframe at 0 if there's no automation node at 0 and Deforum doesn't handle that so either put the node there or add one in the resulting text
-- Issues when multiple points resolve to the same frame
-- Includes a comma at end which can mess up the Deforum parser
+- Issues when multiple points resolve to the same frame. 
+  For example, in automation events you can put 2 at the same point in time in Ableton, but Deforum builds a map of keyframe->value so one would be overridden.
+  Initially I addressed this by incrementing colliding points (if 2 land at frame 15, switch it to 15 and 16). This had the problem that if 3 land at 15 this would end up with 15,16,17 which will start to throw off the timing of the animation.
+  This can happen also because you can put automation events at any fraction of a beat, but the script has to discretize them to keyframe indices at a much lower rate (44.1khz+ -> 15hz) which will lead to collisions.
