@@ -101,6 +101,7 @@ elif root.get("MajorVersion") == '5':
         id = envelope.find("EnvelopeTarget").find("PointeeId").get("Value")
         range = deviceInfo[id]['range']
         name = deviceInfo[id]['name']
+        print("\n")
         print(f'Keyframes for: {name} with range {range}')
         for child in events:
             frame = round(float(child.get("Time")) / bpm * 60 * fps)
